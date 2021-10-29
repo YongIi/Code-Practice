@@ -1,0 +1,26 @@
+.PHONY:clean install all
+
+all:hello
+
+var1=hello
+var=${var1}
+
+test:
+	@echo ${var}
+
+
+
+hello:hello.o libcn.a
+	gcc hello.o -L ./ -lcn -o hello
+
+libcn.a:cn.o
+	ar -crv libcn.a cn.o
+
+hello.o cn.o:%.o:%.c
+	gcc -c $< -o $@
+
+install:
+	cp hello /usr/bin
+
+clean:
+	rm -rf *.o *.a hello

@@ -1,0 +1,49 @@
+.PHONY: install clean
+
+##编译命令相关的变量
+CC = gcc
+CFLAGS = -Wall -g 
+INCLUDES = -I${include}
+LIBDIRS = -L${lib}
+#指定需要链接的库
+LIBS = -lcn
+
+##文件(列表)相关的变量
+target = ${bin}/hello
+srcs = ${wildcard ${src}/*.c}
+objs = ${patsubst ${src}/%.c,${obj}/%.o,${srcs}}
+#objs = ${obj}/hello.o \
+	   ${obj}/cn.o
+libs = ${lib}/libcn.a
+
+##路径相关的变量
+include = ./include
+bin = ./bin
+lib = ./lib
+obj = ./obj
+src = ./src
+#vpath %.c src
+#vpath %.h include
+#vpath %.o obj
+
+##Let's build
+${target}:${objs} ${libs}
+	${CC} ${objs} ${LIBDIRS} ${LIBS} -o $@
+
+${obj}/%.o:${src}/%.c
+	$(CC) ${INCLUDES} ${CFLAGS} -c $< -o $@
+
+${libs}:${obj}/cn.o
+	ar -crv $@ $<
+
+##phony target
+install:
+	cp -a ${target} /usr/liyong/bin
+
+clean:
+	rm -rf ${bin}/* ${obj}/* ${lib}/*
+
+##测试make函数
+wildcard:
+	@echo ${wildcard ${src}/*.c}
+	@echo ${src}/*.c
