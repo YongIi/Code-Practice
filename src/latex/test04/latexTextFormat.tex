@@ -1,0 +1,54 @@
+%导言区——进行全局设置
+\documentclass[10pt]{article} %[]是可选项10、11、12，设置normal size的字体大小
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+%latex思想是格式与命令分离，不建议在文档中使用大量命令，一般定义一个新的命令执行相应的操作
+\newcommand{\myfont}{\textit{\textbf{\textsf{Fancy Text}}}}
+
+%正文区（文稿区）
+\begin{document}
+	% 1.1字体族设置（罗马字体、无衬线字体、打字机字体）
+	\textrm{Roman Family} \textsf{Sans Serif Family} \texttt{Typewriter Family}
+	
+	% 1.2字体声明，声明后续的字体为罗马字体，{}可以限定作用范围
+	\rmfamily Roman Family {\sffamily Sans Serif Family} {\ttfamily Typewriter Family}
+	
+	\rmfamily good good study
+	
+	{\ttfamily good good study}
+	
+	% 2字体系列设置（粗细、宽度）
+	\textmd{Medium Series}	\textbf{Boldface Series}
+	
+	{\mdseries Medium Series}	{\bfseries Boldface Series}
+	
+	% 3.1字体形状（直立、斜体、伪斜体、小型大写）
+	\textup{Upright Shape} \textit{Italic Shape}
+	\textsl{Slanted Shape} \textsc{Small Caps Shape}
+	
+	{\upshape Upright Shape} {\itshape Italic Shape} {\slshape Slanted Shape} {\scshape {Small Caps Shape}
+		
+	% 3.2中文字体 \quad是空格
+	{\songti 宋体} \quad {\heiti 黑体} \quad {\fangsong 仿宋} \quad {\kaishu 楷书}
+	
+	中文字体中的\textbf{粗体}与\textit{斜体}
+	
+	% 字体大小，是相对normal size而言的，其在\documentclass[10pt]{article}中指定
+	{\tiny				hello}
+	{\scriptsize		hello}
+	{\footnotesize		hello}
+	{\small				hello}
+	{\normalsize		hello}
+	{\large				hello}
+	{\Large				hello}
+	{\LARGE				hello}
+	{\huge				hello}
+	{\Huge				hello}
+	
+	% 中文字号设置命令，参数-0代表小初号
+	\zihao{-0} 你好！
+	
+	\myfont
+	
+\end{document}

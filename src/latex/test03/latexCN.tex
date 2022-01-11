@@ -1,0 +1,22 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+%定义新命令：{^\circ}-->{\degree}
+\newcommand{\degree}{^\circ}
+
+\title{\heiti 杂谈勾股定理}
+\author{\kaishu 李勇}
+\date{\today}
+
+%正文区（文稿区）
+\begin{document}	%一个latex文件有且仅有一个document环境
+	\maketitle	%输出标题信息，与letter类不兼容
+	
+	勾股定理可以用现代语言表述如下：
+	直角三角形斜边的平方等于两腰的平方和。可以用符号语言表述为：设直角三角形$ABC$，其中$\angle C=90\degree$，则有：
+	\begin{equation}	%带编号的行间公式
+		AB^2=BC^2+AC^2 
+	\end{equation}
+\end{document}

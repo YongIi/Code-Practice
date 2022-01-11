@@ -1,0 +1,19 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\title{My First Document}
+\author{Yong Li}
+\date{\today}
+
+%\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+%正文区（文稿区）
+\begin{document}	%一个latex文件有且仅有一个document环境
+	\maketitle	%输出标题信息，与letter类不兼容
+	
+	Hello World！
+	%空行实现分段，空行不包括注释
+	
+	%在$formula$内为数学模式，是行内公式，在其外为文本模式；$$formula$$则是行间公式，另起一行显示公式
+	Let $f(x)$ be defined by the formula$$f(x)=3x^2+x-1$$which is a polynomial of degree of 2.
+\end{document}

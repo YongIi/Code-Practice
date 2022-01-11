@@ -1,0 +1,27 @@
+%导言区——进行全局设置
+\documentclass[10pt]{report} %[]是可选项10、11、12，设置normal size的字体大小
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+\title{\heiti 劝学}
+\author{\kaishu 荀子}
+\date{\today}
+
+%正文区（文稿区）
+\begin{document} %使用section、subsection列提纲
+	\maketitle
+	\tableofcontents	%目录
+	
+	\section{引言}
+	君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。木直中绳。輮以为轮，其曲中规。虽有槁暴，不复挺者，輮使之然也。故木受绳则直，金就砺则利，君子博学而日参省乎己，则知明而行无过矣。
+	
+	% \\是换行，但是没有产生新的段落，所以首行并没有产生缩进
+	
+	\section{实验方法}
+	\section{实验结果}
+	\subsection{数据}
+	\subsubsection{数据点1}
+	\subsubsection{数据点2}
+	\subsection{图标}
+	\section{结论}
+\end{document}

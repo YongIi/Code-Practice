@@ -1,0 +1,31 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+%正文区（文稿区）
+\begin{document}
+	\section{空白字符}
+	空行分段，多个空行=一个空行，自动缩进无法用空格代替
+	
+	英文中多个空格=1个空格，中文中空格被忽视
+	
+	汉字与其他字符的间距会自动由xelatex处理
+	
+	禁止使用中文全角空格
+	
+	空格由\quad 来实现
+	
+	\section{\LaTeX 的控制符}
+	\# \$ \% \{ \} \& \textbackslash
+	
+	\section{引号}
+	`单引号'
+	
+	``双引号''
+	
+	latex中引号是有左右之分的，左引号是数值键1左边的按键
+	
+	
+	
+\end{document}
