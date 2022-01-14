@@ -1,0 +1,25 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+%biblatex/biber
+%新的TEX参考文献排版引擎
+%样式文件（参考文献样式文件——bbx文件，引用样式文件——cbx文件）使用LATEX编写
+%支持本地化排版，如：
+%	biber -l zh_pinyin texfile，用于指定按拼音排序
+%	biber -l zh_stroke texfile， 用于按笔画排序
+\usepackage[style=numeric,backend=biber]{biblatex} % 样式为numeric，后端程序为biber
+\addbibresource{RefData.bib} %添加参考文献数据库，不可压省略后缀.bib
+	
+\begin{document}
+	% 一次管理，多次使用
+	无格式化引用\cite{pewowaruk2021solution}
+	
+	带方括号的引用\parencite{sezen2021alternative}
+	
+	上标引用\supercite{trebotich2008performance}
+	
+	\printbibliography
+	%\printbibliography[title={参考文献}] %将参考文献的英文改名为中文
+\end{document}

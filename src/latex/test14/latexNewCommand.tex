@@ -1,0 +1,81 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+% \newcommand——定义命令
+% 命令只能由字母组成，不能以\end开头
+% \newcommand{命令}[<参数个数>][首参数默认值]{<具体定义>}
+
+%\newcommand可以是简单字符串替换，例如
+%使用\PRC 相当于 People's Republic of \emph{China} 这一串内容
+\newcommand\PRC{People's Republic of \emph{China}}
+
+%\newcommand也可以使用参数
+%参数个数最多可以是9个，使用时用#1，#2,...，#9表示
+\newcommand{\loves}[2]{#1 喜欢 #2}
+\newcommand{\hatedby}[2]{#2 不受 #1 喜欢}
+
+%\newcommand 的参数也可以有默认值，只有第一个参数有默认值
+%指定参数个数的同时指定了首个参数的默认值，那么这个命令的第一个参数就成为可选的参数(要在中括号[]中指定)
+\newcommand{\love}[3][喜欢]{#2#1#3}
+
+%\renewcommand——重新定义命令，规则与\newcommand一致，但只能作用于已有的命令
+\renewcommand{\abstractname}{内容简介}
+
+%定义和重定义环境
+%\newenvironment{envname}[args][default]{begdef}{enddef}  %环境名称 参数个数 首参数默认值 环境前定义 环境后定义
+%\renewenvironment{envname}[args][default]{begdef}{enddef} %环境名称 参数个数 首参数默认值 环境前定义 环境后定义
+%为book类中定义摘要（abstract）环境
+\newenvironment{myabstract}[1][摘要] %环境名称 参数个数 首参数默认值
+{ %前环境定义
+	\begin{center}
+		\bfseries #1  %\bfseries是字号
+	\end{center}
+	\begin{quotation}
+}
+{ %后环境定义
+	\end{quotation}
+}
+
+%\newcommand和\newenvironment可以嵌套使用
+%因为环境参数只有<环境前定义>可以使用参数，<环境后定义>不能再使用参数。如果需要，可以先把前面得到的参数保存在一个命令中，再在后面使用：
+\newenvironment{Quotation}[1]
+{ %前环境定义
+	\newcommand{\quotesource}{#1}
+	\begin{quotation}
+}
+{ %后环境定义
+	\par\hfill--- 《\textit{\quotesource}》
+	\end{quotation}
+}
+
+
+
+\begin{document}
+	\PRC
+	
+	\loves{猫儿}{鱼}
+	
+	\hatedby{猫儿}{萝卜}
+	
+	%\love{arg2}{arg3}
+	\love{猫儿}{鱼}
+	
+	%\love[opt. arg1]{arg2}{arg3}
+	\love[最爱]{猫儿}{鱼}
+	
+	\begin{abstract}
+		这是一段摘要...
+	\end{abstract}
+
+	\begin{myabstract}[我的摘要]
+		这是一段自定义格式的摘要...
+	\end{myabstract}
+
+	\begin{Quotation}{易$\cdot$乾}
+		初九，潜龙勿用。
+	\end{Quotation}
+
+
+\end{document}

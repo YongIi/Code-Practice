@@ -1,0 +1,68 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+\usepackage{amsmath}	%用于使用equation*环境
+\usepackage{amssymb}	%用于花体字符
+
+% 正文区
+\begin{document}
+	% 带编号
+	\begin{gather}
+		\sqrt{x^2+y^2} \\
+		\frac{1}{1+\frac{1}{x}}
+	\end{gather}
+
+	% 不带编号
+	\begin{gather*}
+		\sqrt{x^2+y^2} \\
+		\frac{1}{1+\frac{1}{x}}
+	\end{gather*}
+
+	% 在\\前面使用\notag阻止编号
+	\begin{gather}
+		3^2+4^2=5^2 \notag \\
+		\frac{1}{1+\frac{1}{x}} \notag \\
+		\sqrt{x^2+y^2}
+	\end{gather}
+
+	% align和align*，用&进行对齐 (例如=对齐，或者公式的起始位置对齐——&放在起始位置)
+	% 带编号
+	\begin{align}
+		3^2+4^2 &= 5^2 \\
+		a &= \sqrt{\frac{x}{x^2+x+1}}
+	\end{align}
+	% 不带编号
+	\begin{align*}
+		3^2+4^2 &= 5^2 \\
+		a &= \sqrt{\frac{x}{x^2+x+1}}
+	\end{align*}
+
+	% split实现一个公式的多行排版，在\begin{equation}中
+	\begin{equation}
+		\begin{split}
+			\cos 2x &= \cos^2 x - \sin^2 x \\
+			&= 2\cos^2 x - 1
+		\end{split}
+	\end{equation}
+
+	% 分段函数的排版——cases环境
+	% 每行公式中用&分隔为两部分，通常表示值和后面的条件
+	\begin{equation}
+		D(x)= \begin{cases}
+			1, & \text{如果 } x \in \mathbb{Q}; \\ % mathbb用于花体字符
+			0, & \text{如果 } x \in \mathbb{R}\setminus\mathbb{Q}.
+		\end{cases}
+	\end{equation}
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+
+\begin{document}
+	
+	表格\ref{table1} 列出了成绩单
+	\begin{table}[htbp]	% Ctrl+T进行多行注释与取消注释
+		\centering
+		\caption{考试成绩}
+		\label{table1}
+			\begin{tabular}{l|c|c|c|r}	%5列表格，分别是左对齐、居中对齐和右对齐， |表示竖线, p{1.5cm}表示列宽度，超过该宽度会自动换行
+			\hline	%代表横线
+			姓名 & 语文 & 数学 & 外语 & 备注 \\	% &分隔列，\\结束该行并另起一行
+			\hline
+			张三 & 87 & 100 & 93 & 优秀 \\
+			\hline
+			李四 & 70 & 80 & 50 & 补考另行通知 \\
+			\hline
+			王五 & 80 & 80 & 80 \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	表后内容
+
+\end{document}

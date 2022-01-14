@@ -1,0 +1,94 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+\usepackage{amsmath}	%用于使用equation*环境
+
+\begin{document}
+	\section{简介}
+	\LaTeX 将排版内容分为文本模式与数学模式。文本模式用于普通文本排版，数学模式用于排版数学公式。
+	\section{行内公式}
+	\subsection{用一对\$\$进行排版}
+	交换律是$a+b=b+a$，如$1+2=2+1=3$。
+	\subsection{用小括号排版}
+	交换律是\(a+b=b+a\)，如\(1+2=2+1=3\)。
+	\subsection{用math环境排版}
+	交换律是\begin{math}a+b=b+a\end{math}，如\begin{math}1+2=2+1=3\end{math}。
+	\section{上下标}
+	\subsection{上标}
+	$2x^20-x+2=0$
+	
+	$2x^{20}-x+2=0$
+	\subsection{下标}
+	$a_01, a_12, a_22$
+	
+	$a_{01}, a_{12}, a_{22}$
+	\section{希腊字母}
+	$\alpha \beta \gamma \epsilon \pi \omega $
+	
+	$\Gamma \Delta \Theta \Pi \Omega$
+	
+	$\alpha^3+\beta^2+\gamma=0$
+	\section{数学函数}
+	$\log \sin \cos \arcsin \arccos \ln \tanh$
+	
+	$\sin^2 x + \cos^2 y = 1$
+	
+	$y = \log_2 x$
+	
+	$\sqrt{x^2+y^2}$
+	
+	$\sqrt[4]{x}$
+	
+	\section{分式}
+	大约是原体积的$3/4$
+	
+	大约是原体积的$\frac{3}{4}$
+	
+	$\frac{1}{1+\frac{1}{x}}$
+	
+	$\sqrt{\frac{x}{x^2+x+1}}$
+	
+	\section{行间公式}
+	\subsection{用双美元符号排版}
+	交换律是
+	$$a+b=b+a$$
+	如：
+	$$1+2=2+1=3$$
+	\subsection{用中括号排版}
+	交换律是
+	\[a+b=b+a\]
+	如：
+	\[1+2=2+1=3\]
+	\subsection{用displaymath排版}
+	\begin{displaymath}
+		a+b=b+a
+	\end{displaymath}
+	如：
+	\begin{displaymath}
+		1+2=2+1=3
+	\end{displaymath}
+
+	\subsection{自动编号用equation环境}
+	公式\ref{eq1} 与公式\ref{qe2} 关系不大
+	\begin{equation}
+		\label{eq1}
+		a+b=b+a
+	\end{equation}
+	\begin{equation}
+		\sqrt{\frac{x}{x^2+x+1}}
+		\label{qe2}
+	\end{equation}
+
+	\subsection{不编号公式用equation*环境}
+	交换律见\ref{eq3} 小节	%此时因为公式不参与编号，只能引用小节
+	\begin{equation*}
+		a+b=b+a
+		\label{eq3}
+	\end{equation*}
+	公式\ref{eq4} 继续参与编号
+	\begin{equation}
+		\frac{1}{1+\frac{1}{x}}
+		\label{eq4}
+	\end{equation}
+\end{document}

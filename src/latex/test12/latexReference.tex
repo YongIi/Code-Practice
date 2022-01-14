@@ -1,0 +1,32 @@
+%导言区——进行全局设置
+\documentclass{article} %有且仅有一个，可设置为article，book, report, letter
+
+\usepackage{ctex}	%引入ctex宏包输出中文 编辑器中编码格式设置为UTF-8，编译器选择为XeLaTeX
+\bibliographystyle{plain} %调用数据库内的文献，有如下几种格式：plain unset alpha abbrb
+
+\begin{document}
+	% 一次管理，一次使用
+	% 参考文献格式：
+%	\begin{thebibliography}{编号样本}
+%		\bibitem[记号]{引用标志}文献条目1
+%		\bibitem[记号]{引用标志}文献条目2
+%	\end{thebibliography}
+%	其中文献条目包括：作者，题目，出版社，年代，页码等
+%	引用时可以采用：\cite{引用标志1, 引用标志2}
+
+	引用第一篇文献\cite{article1}，引用第一本书\cite{book1}等等
+	\begin{thebibliography}{99}
+			\bibitem{article1}陈立辉, 苏伟.\emph{基于LaTex的Web数学公式提取方法研究}[J]. 计算机科学. 2014(06)
+			\bibitem[记号]{引用标志}文献条目2
+			\bibitem{book1}William H. Press, Saul A. Teukolsky. \emph{Numeriacal Recipes 3rd Edition: The Art of Scientific Computing} Cambridge University Press, New York, 2007.
+	\end{thebibliography}
+
+	% 强烈推荐使用第二种方法：一次管理，多次使用。
+	采用一次管理，多次使用的方法。参考的文献放在参考文献库（ RefData.bib文件）中，该文献被引用的时会自己列入文末的参考文献中。这种方式很方便，例如我引用参考文献\cite{sezen2021alternative}和参考文献\cite{pewowaruk2021solution}时，这两篇文献会自动出现在文末的参考文献中，不需要手动输入参考文献的作者，名称等等。参考文献的格式可以直接在Google scholar中复制BitTex的格式即可。
+	\bibliography{RefData} % 不需要写RefData.bib的后缀.bib，RefData.bib文件的路径要与当前路径一致，若有多个数据库可以用逗号，隔开
+	
+	%若想在参考文献列表中排版未引用的文献，可以用\nocite{*}排版出所有（剩下的未引用的？）文献
+	\nocite{*}
+
+
+\end{document}
