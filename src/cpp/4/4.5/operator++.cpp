@@ -42,7 +42,7 @@ private:
     int m_Num;
 };
 
-//重载左移<<运算符
+//将后置++重载左移<<运算符
 ostream &operator<<(ostream &cout, myInteger myint) //同理，因为后置++运算符传过来的是一个新建的临时对象，其接收也不能用引用的方式，因为临时对象的数据会在传完后被释放，不能被引用，故第二个参数的类型不能加&
 {
     cout << myint.m_Num;
