@@ -14,6 +14,11 @@ public:
     {
         cout << test << endl;
     }
+
+    void operator()()
+    {
+        cout << "仿函数可以不要参数，但重载()时有两个括号" << endl;
+    }
 };
 
 void MyPrint02(string test)
@@ -25,6 +30,7 @@ void test01()
 {
     MyPrint myPrint;
     myPrint("Hello World!"); //由于使用起来非常像函数调用，因此称为仿函数——重载小括号
+    myPrint();
     MyPrint02("Hello World!");
 }
 
