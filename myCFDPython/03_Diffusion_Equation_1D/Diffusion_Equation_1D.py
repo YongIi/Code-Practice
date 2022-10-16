@@ -1,13 +1,7 @@
 # 开发人员：leo
 # 开发时间：2022/10/12 17:55
 
-# 1-D Nonlinear Convection
-
-"""
-在非线性对流方程中，解u会向右传播，且形状发生改变，高度也会下降
-网格大小dx和时间步长dt不能随意改动，需要注意CFL条件，否则任意发散
-运行后出现 RuntimeWarning: *** encountered in double_scalars 等相关bug是由于发散导致的
-"""
+# 1-D Diffusion Equation
 
 import numpy  # a library that provides a bunch of useful matrix operations
 from matplotlib import pyplot  # 2D plotting library
@@ -17,9 +11,12 @@ from matplotlib import pyplot  # 2D plotting library
 Lx = 2  # spatial domain that is 2 units of length wide
 nx = 81  # the number of grid points
 dx = Lx / (nx - 1)  # the distance between any pair of adjacent grid points
-nt = 150  # Total time steps we want to calculate
-dt = 0.0025  #  time step (delta t)
+nt = 80  # Total time steps we want to calculate
+nu = 0.3  #the value of viscosity
+sigma = .2  # CFL number
+dt = sigma * (dx ** 2) / nu  #  time step (delta t)
 # print("dx =", dx)  # 仅用于debug
+print("dt =", dt)
 
 # Initial Conditions
 # setting u = 2 between 0.5 and 1, and u=1 everywhere else in (0,2)
@@ -33,8 +30,8 @@ pyplot.show()  # 将绘图在IDE中显示出来
 un = numpy.ones(nx)  # initialize a temporary array, to hold the values we calculate for the n+1 timestep
 for n in range(nt):  # 时间推进
     un=u.copy()  # 将上一时间步的结果复制给un
-    for i in range(1,nx):  # 根据上一步的结果un，计算出这一步的u
-        u[i] = un[i] - un[i]*dt/dx*(un[i]-un[i-1])  # 注意要控制CFL数，否则容易发散
+    for i in range(1,nx-1):  # 根据上一步的结果un，计算出这一步的u
+        u[i] = un[i] + nu*dt/(dx**2)*(un[i+1]-2*un[i]+un[i-1])  # 注意要控制CFL数，否则容易发散
 
 # print(u)  # 仅用于debug
 
