@@ -64,11 +64,17 @@ plt.show()
 # Numerical solution - FDM
 for n in range(nt):  # 时间推进
     un=u.copy()  # 将上一时间步的结果复制给un
+    # 改写：采用矩阵操作，省略循环操作
+    u[1:-1] = un[1:-1] - un[1:-1] * dt / dx * (un[1:-1] - un[0:-2]) + nu * dt / (dx ** 2) * (un[2:] - 2 * un[1:-1] + un[0:-2])
+    """
     for i in range(1,nx-1):  # 根据上一步的结果un，计算出这一步的u
         u[i] = un[i] - un[i]*dt/dx*(un[i]-un[i-1]) + nu*dt/(dx**2)*(un[i+1]-2*un[i]+un[i-1])  # 注意要控制CFL数，否则容易发散
+    """
     # 处理完内部网格后再处理边界网格，先求入口边界网格的值(由于u[-1] = u[0]，un[i-1]取un[-2])，再拷贝给出口网格
     u[0] = un[0] - un[0] * dt / dx * (un[0] - un[-2]) + nu * dt / (dx ** 2) * (un[1] - 2 * un[0] + un[-2])
     u[-1] = u[0]  # 周期性边界条件
+
+
 
 # analytical solution
 u_analytical = numpy.asarray([ufunc(nt * dt, xi, nu) for xi in x])
