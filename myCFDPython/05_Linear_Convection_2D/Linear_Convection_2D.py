@@ -3,6 +3,9 @@
 
 # Linear Convection - 2D
 # the problem to be solved: du/dt + c*du/dx +c*du/dy = 0
+"""
+本质是物理量u，在二维速度场(c, c)中的移动，理论上u的形状与大小不会发生变化，但是数值格式问题总会有数值耗散
+"""
 
 import numpy
 from matplotlib import pyplot, cm
@@ -73,7 +76,6 @@ print("嵌套循环时间：", datetime.now() - time1)
 time2 = datetime.now()
 for n in range(nt+1):  # 可不可以不+1
     un = u.copy()
-    row, col = u.shape
     u[1:, 1:] = un[1:, 1:] - c * dt / dx * (un[1:, 1:] - un[1:, :-1]) - \
                               c * dt / dy * (un[1:, 1:] - un[:-1, 1:])
     # 更新边界条件
