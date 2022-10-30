@@ -66,7 +66,6 @@ def build_up_b(b, rho, dt, u, v, dx, dy):  # 压力泊松方程的源项
 
 def pressure_poisson(p, dx, dy, b):
     pn = numpy.zeros_like(p)
-    pn = p.copy()
     for q in range(nit):
         pn = p.copy()
         p[1:-1, 1:-1] = ((pn[1:-1, 2:] + pn[1:-1, 0:-2]) * dy ** 2 + (pn[2:, 1:-1] + pn[0:-2, 1:-1]) * dx ** 2 \
@@ -131,7 +130,7 @@ ymin = 0
 ymax = 2
 nx = 41  # the number of grid points
 ny = 41
-nt = 500  # Total time steps we want to calculate
+nt = 700  # Total time steps we want to calculate
 nit = 50  # pseudo-time，设置泊松方程迭代次数
 dx = (xmax - xmin) / (nx - 1)
 dy = (ymax - ymin) / (ny - 1)
@@ -164,11 +163,10 @@ p[:, 0] = p[:, 1]  # dp/dx = 0 at x = 0
 p[-1, :] = 0  # p = 0 at y = 2
 
 # Plot initial conditions
-# plotP(x, y, p)
+# plotP(x, y, p, u, v)
 # plotU(x, y, u, v)
 
 # Numerical solution for cavity flow- FDM
-nt = 700
 u, v, p = cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu)
 
 # postProcessing
