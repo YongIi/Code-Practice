@@ -40,7 +40,6 @@ u = numpy.ones((ny, nx))  # ny是行数，nx是列数
 v = numpy.ones((ny, nx))  # ny是行数，nx是列数
 un = numpy.ones((ny, nx))
 vn = numpy.ones((ny, nx))
-comb = numpy.ones((ny, nx))  #这个是干嘛的？？？？？？？？？？？
 # print(id(u) is id(un))  # False
 u[int(.5 / dy):int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2  # 数组切片后没有生成新的数组，因为切片是右开区间，所以要加上1， # index = x/dx
 v[int(.5 / dy):int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2
