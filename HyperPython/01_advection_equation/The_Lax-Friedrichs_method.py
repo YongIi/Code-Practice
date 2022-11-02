@@ -9,7 +9,7 @@ a = 1.0  # advection speed
 
 m = 1000  # number of cells
 dx = 1. / m  # Size of 1 grid cell
-x = np.arange(-dx / 2, 1. + dx / 2, dx)  # Cell centers, including ghost cells # 注意arange是右开区间，故最右边只到最后一个网格中心，即最右边没有ghost cell
+x = np.arange(-dx / 2, 1. + dx / 2 * 2, dx)  # Cell centers, including ghost cells # 注意arange是右开区间，故最右边只到最后一个网格中心，即最右边没有ghost cell
 print(x)  # 注意arange是右开区间，故最右边只到最后一个网格中心，即最右边没有ghost cell，如需在最右端设置ghost cell，需要给1. + dx / 2乘以2
 print(len(x))  # 统计包含ghost cells的网格数量
 """
@@ -40,12 +40,13 @@ while t < T:
         Qnew[i] = Q[i] - a * dt / dx * (Q[i] - Q[i - 1])
     """
 
-    Qnew[1:] = Q[1:] - a * dt / dx * (Q[1:] - Q[0: -1])
+    #Qnew[1:] = Q[1:] - a * dt / dx * (Q[1:] - Q[0: -1])
+    Qnew[1:-1] = (Q[0:-2] + Q[2:]) / 2 - a * dt / (2 * dx) * (Q[2:] - Q[0:-2])
 
     # 更新边界条件
     # Extrapolation at boundaries: 边界外推，向ghost cells网格中给入值
     Qnew[0] = Q[1]
-    # Qnew[-1] = Q[-2]  # 右边不是没有ghost cells网格吗？
+    Qnew[-1] = Q[-2]  # 右边不是没有ghost cells网格吗？
     """
     The technique we have used to set the ghost cell values above, by copying the last value 
     inside the grid to the ghost cells, is known as zero-order extrapolation. It is useful for 
@@ -63,7 +64,7 @@ Qexact = np.exp(-200 * ((x - a * T) - 0.2) ** 2)
 
 # postProcessing
 plt.plot(x, Qexact,label="exact solution", linestyle='-', color='k', linewidth=2)
-plt.plot(x, Q, label="upwind method with {0} grids".format(m), linestyle='--', color='r', linewidth=2)
+plt.plot(x, Q, label="The Lax-Friedrichs method with {0} grids".format(m), linestyle='--', color='r', linewidth=2)
 plt.title('t = ' + str(t))
 #plt.title('t = ' + '%.3fs' % (t))
 plt.legend()
@@ -83,7 +84,7 @@ def plot_q(i):
     time_text.set_text(time_template % (i*dt))  # 在动图中添加对时间的显示，%(a, b)可以添加多个参数
 
 anim = animation.FuncAnimation(fig, plot_q, frames=range(0,len(lst_anim),20))  # frames是帧数，数量太多了需要间隔来取
-anim.save('solution_versus_time.gif', fps=100)
+anim.save('The Lax-Friedrichs method.gif', fps=100)
 plt.show()
 
 # 测试
