@@ -1,13 +1,20 @@
 # 开发人员：leo
 # 开发时间：2022/11/1 9:17
 
+# traffic flow
+"""
+与其他文件的区别在于使用了第三方的绘图库
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import animation
+#from matplotlib import animation
+import sys
+sys.path.append('../util')
+from myianimate import ianimate
 
-a = 1.0  # advection speed
 
-m = 1000  # number of cells
+m = 500  # number of cells
 dx = 1. / m  # Size of 1 grid cell
 x = np.arange(-dx / 2, 1. + dx / 2 * 2, dx)  # Cell centers, including ghost cells # 注意arange是右开区间，故最右边只到最后一个网格中心，即最右边没有ghost cell
 print(x)  # 注意arange是右开区间，故最右边只到最后一个网格中心，即最右边没有ghost cell，如需在最右端设置ghost cell，需要给1. + dx / 2乘以2
@@ -18,35 +25,28 @@ These are called ghost cells and are often useful in handling the solution at th
 """
 
 t = 0.  # Initial time
-T = 0.5  # Final time
-CFL = 0.8
-dt = CFL * dx / a  # Time step  # 0.8是CFL数
-print("dt =", dt)
-# nt = (T - t)/ dt
-# print(nt)
+T = 2  # Final time
+# CFL = 0.8
+dt = 0.9 * dx  # Time step  # 0.8是CFL数
 
-Q = np.exp(-200 * (x - 0.2) ** 2)  # Initial data
+
+
+Q = 0.9*np.exp(-100*(x-0.5)**2)  # Initial data
 Qnew = np.empty(Q.shape)
 lst_anim = [Q]  # 创建一个列表用来存储所有时间的解
 
-# FVM - the Lax-Friedrichs method
+# FVM -  the Lax-Friedrichs method
 while t < T:
     # Modify the code so that the last step is adjusted to exactly reach T
     if t + dt > T:
         dt = T - t
 
-    """
-    for i in range(1, len(x)):
-        Qnew[i] = Q[i] - a * dt / dx * (Q[i] - Q[i - 1])
-    """
-
-    #Qnew[1:] = Q[1:] - a * dt / dx * (Q[1:] - Q[0: -1])  #  upwind method
-    Qnew[1:-1] = (Q[0:-2] + Q[2:]) / 2 - a * dt / (2 * dx) * (Q[2:] - Q[0:-2])
+    Qnew[1:-1] = 0.5 * (Q[:-2] + Q[2:]) - 0.5 * dt / dx * (Q[2:] * (1 - Q[2:]) - Q[:-2] * (1 - Q[:-2]))
 
     # 更新边界条件
-    # Extrapolation at boundaries: 边界外推，向ghost cells网格中给入值
-    Qnew[0] = Qnew[1]
-    Qnew[-1] = Qnew[-2]  # 右边不是没有ghost cells网格吗？
+    # 周期性边界条件
+    Qnew[0] = Qnew[-2]
+    Qnew[-1] = Qnew[1]
     """
     The technique we have used to set the ghost cell values above.
     """
@@ -56,17 +56,18 @@ while t < T:
     t = t + dt  # 本次迭代完后得到的实际时间
     #print("t =", t)
 
-# 解析解
-Qexact = np.exp(-200 * ((x - a * T) - 0.2) ** 2)
 
 # postProcessing
-plt.plot(x, Qexact,label="exact solution", linestyle='-', color='k', linewidth=2)
-plt.plot(x, Q, label="The Lax-Friedrichs method with {0} grids".format(m), linestyle='--', color='r', linewidth=2)
+# plt.plot(x, Qexact,label="exact solution", linestyle='-', color='k', linewidth=2)
+plt.plot(x, Q, label="The Lax-Friedrichs method with {0} grids".format(m), linestyle='-', color='r', linewidth=2)
 plt.title('t = ' + str(t))
 #plt.title('t = ' + '%.3fs' % (t))
 plt.legend()
 plt.show()
 
+ianimate(x, lst_anim)
+
+"""
 # animation
 fig = plt.figure(figsize=(8, 4))  # Create an empty figure
 ax = plt.axes()
@@ -80,12 +81,7 @@ def plot_q(i):
     line.set_data(x, lst_anim[i])  # Replace the line plot with the solution at time t
     time_text.set_text(time_template % (i*dt))  # 在动图中添加对时间的显示，%(a, b)可以添加多个参数
 
-anim = animation.FuncAnimation(fig, plot_q, frames=range(0,len(lst_anim),20))  # frames是帧数，数量太多了需要间隔来取
-anim.save('The Lax-Friedrichs method.gif', fps=100)
+anim = animation.FuncAnimation(fig, plot_q, frames=range(0,len(lst_anim),10))  # frames是帧数，数量太多了需要间隔来取，但因为是右开区间，最后一些帧数可能没包含进来
+anim.save('traffic flow with Lax-Friedrichs method.gif', fps=100)
 plt.show()
-
-# 测试
-print(len(lst_anim))
-print(range(0,len(lst_anim),20))
-for i in range(0,len(lst_anim),20):
-    print(i)
+"""

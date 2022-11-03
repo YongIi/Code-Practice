@@ -24,10 +24,10 @@ dt = CFL * dx / a  # Time step  # 0.8是CFL数
 print("dt =", dt)
 # nt = (T - t)/ dt
 # print(nt)
-lst_anim = []  # 创建一个列表用来存储所有时间的解
 
 Q = np.exp(-200 * (x - 0.2) ** 2)  # Initial data
 Qnew = np.empty(Q.shape)
+lst_anim = [Q]  # 创建一个列表用来存储所有时间的解
 
 # FVM - upwind method
 while t < T:

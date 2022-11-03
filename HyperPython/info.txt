@@ -1,0 +1,24 @@
+安装clawpack
+https://www.clawpack.org/v5.3.x/installing.html
+https://www.clawpack.org/installing_more_options.html
+
+难点：
+1、不支持Windows
+2、Python不支持3.0及以上版本。5.7.0之后的版本已经可以支持了
+
+为 Python 2 安装 pip
+https://linux.cn/article-10110-1.html
+
+sudo apt-get update
+sudo apt install python-pip
+pip2 --version
+
+
+
+测试是否安装成功
+https://www.clawpack.org/first_run_pyclaw.html#first-run-pyclaw
+
+我的安装过程
+1，下载并解压了clawpack-v5.9.0.tar.gz
+2，cd进去文件夹
+3，python setup.py install > install_output.txt
